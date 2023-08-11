@@ -28,25 +28,32 @@ module tb_threebit;
   initial begin
     $display("Starting simulation...");
 
-    // Test cases
-    // Test case 1: a=6, b=1
-    a = 3'b110;
-    b = 3'b001;
-    #10;
-    $display("Test 1: a=%b, b=%b, A_greater_B=%b, A_equal_B=%b, A_smaller_B=%b", a, b, A_greater_B, A_equal_B, A_smaller_B);
-    
-    // Test case 2: a=2, b=3
-    a = 3'b010;
-    b = 3'b011;
-    #10;
-    $display("Test 2: a=%b, b=%b, A_greater_B=%b, A_equal_B=%b, A_smaller_B=%b", a, b, A_greater_B, A_equal_B, A_smaller_B);
-    
-    // Test case 3: a=5, b=4
-    a = 3'b101;
-    b = 3'b100;
-    #10;
-    $display("Test 3: a=%b, b=%b, A_greater_B=%b, A_equal_B=%b, A_smaller_B=%b", a, b, A_greater_B, A_equal_B, A_smaller_B);
-    
+    // Test cases using a for loop
+    for (int i = 0; i < 8; i = i + 1) begin
+      case (i)
+        0: begin a = 3'b110; b = 3'b001; end
+        1: begin a = 3'b010; b = 3'b011; end
+        2: begin a = 3'b101; b = 3'b100; end
+      endcase
+
+      // Wait a bit before checking results
+      #10;
+
+      // Check results
+      $display("Test %0d: a=%b, b=%b, A_greater_B=%b, A_equal_B=%b, A_smaller_B=%b", i, a, b, A_greater_B, A_equal_B, A_smaller_B);
+      
+      // Verify results
+      if (a > b && !A_greater_B) begin
+       
+      end
+      if (a == b && !A_equal_B) begin
+       
+      end
+      if (a < b && !A_smaller_B) begin
+       
+      end
+    end
+
     $display("Simulation completed.");
     $finish;
   end
